@@ -43,72 +43,72 @@ RUN apt-get update -qq > /dev/null && \
     apt-get install -qq locales > /dev/null && \
     locale-gen "$LANG" > /dev/null && \
     apt-get install -qq --no-install-recommends \
-        autoconf \
-        build-essential \
-        curl \
-        file \
-        git \
-        gpg-agent \
-        less \
-        lib32stdc++6 \
-        lib32z1 \
-        lib32z1-dev \
-        lib32ncurses5 \
-        libc6-dev \
-        libgmp-dev \
-        libmpc-dev \
-        libmpfr-dev \
-        libxslt-dev \
-        libxml2-dev \
-        m4 \
-        ncurses-dev \
-        ocaml \
-        openjdk-8-jdk \
-        openjdk-11-jdk \
-        openssh-client \
-        pkg-config \
-        ruby-full \
-        software-properties-common \
-        tzdata \
-        unzip \
-        vim-tiny \
-        wget \
-        zip \
-        zlib1g-dev > /dev/null && \
+    autoconf \
+    build-essential \
+    curl \
+    file \
+    git \
+    gpg-agent \
+    less \
+    lib32stdc++6 \
+    lib32z1 \
+    lib32z1-dev \
+    lib32ncurses5 \
+    libc6-dev \
+    libgmp-dev \
+    libmpc-dev \
+    libmpfr-dev \
+    libxslt-dev \
+    libxml2-dev \
+    m4 \
+    ncurses-dev \
+    ocaml \
+    openjdk-8-jdk \
+    openjdk-11-jdk \
+    openssh-client \
+    pkg-config \
+    ruby-full \
+    software-properties-common \
+    tzdata \
+    unzip \
+    vim-tiny \
+    wget \
+    zip \
+    zlib1g-dev > /dev/null && \
     echo "set timezone" && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     echo "nodejs, npm, cordova, ionic, react-native" && \
     curl -sL -k https://deb.nodesource.com/setup_${NODE_VERSION} \
-        | bash - > /dev/null && \
+    | bash - > /dev/null && \
     apt-get install -qq nodejs > /dev/null && \
     apt-get clean > /dev/null && \
     curl -sS -k https://dl.yarnpkg.com/debian/pubkey.gpg \
-        | apt-key add - > /dev/null && \
+    | apt-key add - > /dev/null && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" \
-        | tee /etc/apt/sources.list.d/yarn.list > /dev/null && \
+    | tee /etc/apt/sources.list.d/yarn.list > /dev/null && \
     apt-get update -qq > /dev/null && \
     apt-get install -qq yarn > /dev/null && \
     rm -rf /var/lib/apt/lists/ && \
     npm install --quiet -g npm > /dev/null && \
     npm install --quiet -g \
-        bower \
-        cordova \
-        eslint \
-        gulp \
-        ionic \
-        jshint \
-        karma-cli \
-        mocha \
-        node-gyp \
-        npm-check-updates \
-        react-native-cli > /dev/null && \
+    bower \
+    cordova \
+    eslint \
+    gulp \
+    ionic \
+    jshint \
+    karma-cli \
+    mocha \
+    node-gyp \
+    npm-check-updates \
+    react-native-cli > /dev/null && \
     npm cache clean --force > /dev/null && \
     rm -rf /tmp/* /var/tmp/*
 
 # Install Android SDK
 RUN echo "sdk tools ${ANDROID_SDK_TOOLS_VERSION}" && \
     wget --quiet --output-document=sdk-tools.zip \
-        "https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_VERSION}.zip" && \
+    "https://dl.google.com/android/repository/sdk-tools-linux-${ANDROID_SDK_TOOLS_VERSION}.zip" && \
     mkdir --parents "$ANDROID_HOME" && \
     unzip -q sdk-tools.zip -d "$ANDROID_HOME" && \
     rm --force sdk-tools.zip
@@ -125,31 +125,31 @@ RUN echo "ndk ${ANDROID_NDK_VERSION}" && \
 # The `yes` is for accepting all non-standard tool licenses.
 RUN mkdir --parents "$HOME/.android/" && \
     echo '### User Sources for Android SDK Manager' > \
-        "$HOME/.android/repositories.cfg" && \
+    "$HOME/.android/repositories.cfg" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager --licenses > /dev/null
 
 RUN echo "platforms" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
-        "platforms;android-30" \
-        "platforms;android-29" \
-        "platforms;android-28" \
-        "platforms;android-27" \
-        "platforms;android-26" \
-        "platforms;android-25" > /dev/null
+    "platforms;android-30" \
+    "platforms;android-29" \
+    "platforms;android-28" \
+    "platforms;android-27" \
+    "platforms;android-26" \
+    "platforms;android-25" > /dev/null
 
 RUN echo "platform tools" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
-        "platform-tools" > /dev/null
+    "platform-tools" > /dev/null
 
 RUN echo "build tools 25-30" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
-        "build-tools;30.0.0" \
-        "build-tools;29.0.3" "build-tools;29.0.2" \
-        "build-tools;28.0.3" "build-tools;28.0.2" \
-        "build-tools;27.0.3" "build-tools;27.0.2" "build-tools;27.0.1" \
-        "build-tools;26.0.2" "build-tools;26.0.1" "build-tools;26.0.0" \
-        "build-tools;25.0.3" "build-tools;25.0.2" \
-        "build-tools;25.0.1" "build-tools;25.0.0" > /dev/null
+    "build-tools;30.0.0" \
+    "build-tools;29.0.3" "build-tools;29.0.2" \
+    "build-tools;28.0.3" "build-tools;28.0.2" \
+    "build-tools;27.0.3" "build-tools;27.0.2" "build-tools;27.0.1" \
+    "build-tools;26.0.2" "build-tools;26.0.1" "build-tools;26.0.0" \
+    "build-tools;25.0.3" "build-tools;25.0.2" \
+    "build-tools;25.0.1" "build-tools;25.0.0" > /dev/null
 
 RUN echo "emulator" && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager "emulator" > /dev/null
@@ -161,7 +161,7 @@ RUN echo "kotlin" && \
 
 RUN echo "Flutter sdk" && \
     cd /opt && \
-    wget --quiet https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.0-stable.tar.xz -O flutter.tar.xz && \
+    wget --quiet https://storage.googleapis.com/flutter_infra/releases/beta/linux/flutter_linux_1.25.0-8.3.pre-beta.tar.xz -O flutter.tar.xz && \
     tar xf flutter.tar.xz && \
     flutter config --no-analytics && \
     rm -f flutter.tar.xz
